@@ -53,6 +53,29 @@ class Channel(models.Model):
 
 class Comments(models.Model):
     comment_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    video_comment = models.ForeignKey('Video', on_delete=models.CASCADE)
+    Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    video_commented_on = models.ForeignKey('Video', on_delete=models.CASCADE)
     date_of_comment = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=False)
+
+    def __str__(self):
+        self.comment_by
+
+
+class Likes(models.Model):
+    Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    liked_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    video_liked = models.OneToOneField('Video', on_delete=models.CASCADE)
+    time_liked = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        self.liked_by
+
+
+# class Subscritions(models.Model):
+#     Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     subscriber = models.ForeignKey(User, on_delete=models.CASCADE)
+#     channel = models.ForeignKey('Channel', on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         self.subscriber
