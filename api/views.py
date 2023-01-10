@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from videos.models import Video
 from .serializers import Videoserializer
+from django.http import JsonResponse
 
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -11,9 +12,10 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def VideosList(request):
-    if request.method == 'POST':
-        return Response({"message": "Got some data!", "data": request.data})
-    return Response({"message": "Hello, world!"})
+    if request.method == 'GET':
+        videos = Video.objects.all()
+        serializer = Videoserializer(videos, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 
 def index(request):
