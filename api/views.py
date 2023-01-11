@@ -12,10 +12,11 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def VideosList(request):
+    print(request.method)
     if request.method == 'GET':
         videos = Video.objects.all()
         serializer = Videoserializer(videos, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
 def index(request):

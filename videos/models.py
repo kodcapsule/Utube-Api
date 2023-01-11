@@ -72,10 +72,10 @@ class Likes(models.Model):
         self.liked_by
 
 
-# class Subscritions(models.Model):
-#     Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     subscriber = models.ForeignKey(User, on_delete=models.CASCADE)
-#     channel = models.ForeignKey('Channel', on_delete=models.CASCADE)
+class Subscritions(models.Model):
+    Id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    subscriber = models.ForeignKey(User, on_delete=models.CASCADE)
+    channel = models.ManyToManyField('Channel')
 
-#     def __str__(self):
-#         self.subscriber
+    def __str__(self):
+        self.subscriber
